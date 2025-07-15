@@ -15,8 +15,8 @@ class VidFrnki(QMainWindow):
         # Set always on top and frameless from the start
         self.setWindowFlags(Qt.WindowType.Window | Qt.WindowType.FramelessWindowHint | Qt.WindowType.WindowStaysOnTopHint)
         
-        # Set slight transparency while no video is playing
-        self.setWindowOpacity(0.8)
+        # Enable translucent background
+        self.setAttribute(Qt.WidgetAttribute.WA_TranslucentBackground)
         
         # For dragging the frameless window
         self.old_pos = None
@@ -30,12 +30,14 @@ class VidFrnki(QMainWindow):
         
         # Central widget and layout
         central_widget = QWidget()
+        central_widget.setStyleSheet("background-color: rgba(40, 40, 40, 204); border-radius: 10px;")  # Uniform semi-transparent background
         self.setCentralWidget(central_widget)
         self.main_layout = QVBoxLayout(central_widget)
-        self.main_layout.setContentsMargins(20, 20, 20, 5)  # Increased margins for space around edges, reduced bottom
+        self.main_layout.setContentsMargins(5, 5, 5, 5)  # Increased margins for space around edges, reduced bottom
         
         # Search container
         self.search_container = QWidget()
+        self.search_container.setStyleSheet("background-color: transparent;")
         self.search_layout = QVBoxLayout(self.search_container)
         self.search_layout.setContentsMargins(0, 0, 0, 0)
         self.search_layout.setSpacing(5)
@@ -45,14 +47,15 @@ class VidFrnki(QMainWindow):
         self.search_input.setPlaceholderText("Enter YouTube search query")
         self.search_input.returnPressed.connect(self.search_videos)
         self.search_input.setMaximumHeight(25)
-        self.search_layout.addWidget(self.search_input)
+        self.search_input.setFixedWidth(360)  # 75% of previous 480
+        self.search_layout.addWidget(self.search_input, alignment=Qt.AlignmentFlag.AlignHCenter)
         
         # Load button (smaller width)
         self.load_button = QPushButton("Search")
         self.load_button.clicked.connect(self.search_videos)
         self.load_button.setMaximumHeight(25)
         self.load_button.setMaximumWidth(100)
-        self.search_layout.addWidget(self.load_button, alignment=Qt.AlignmentFlag.AlignCenter)
+        self.search_layout.addWidget(self.load_button, alignment=Qt.AlignmentFlag.AlignHCenter)
         
         self.search_layout.addStretch()
         
@@ -75,15 +78,6 @@ class VidFrnki(QMainWindow):
         self.search_toggle.setChecked(True)
         self.search_toggle.clicked.connect(self.toggle_on_top)
         self.search_controls.addWidget(self.search_toggle)
-        
-        # Drag handle
-        self.search_drag = QLabel("⋮")
-        self.search_drag.setFixedSize(15, 15)
-        self.search_drag.setCursor(QCursor(Qt.CursorShape.OpenHandCursor))
-        self.search_drag.mousePressEvent = lambda event: self.start_drag(event, self.search_drag)
-        self.search_drag.mouseMoveEvent = lambda event: self.do_drag(event)
-        self.search_drag.mouseReleaseEvent = lambda event: self.end_drag(event, self.search_drag)
-        self.search_controls.addWidget(self.search_drag)
         
         # Minimize button
         self.search_minimize = QPushButton("−")
@@ -108,6 +102,7 @@ class VidFrnki(QMainWindow):
         
         # Results container
         self.results_container = QWidget()
+        self.results_container.setStyleSheet("background-color: transparent;")
         self.results_layout = QVBoxLayout(self.results_container)
         self.results_layout.setContentsMargins(0, 0, 0, 0)
         self.results_layout.setSpacing(5)
@@ -124,6 +119,12 @@ class VidFrnki(QMainWindow):
         self.results_controls.setContentsMargins(0, 0, 0, 0)
         self.results_controls.setSpacing(10)
         
+        # Back button
+        self.results_back = QPushButton("←")
+        self.results_back.setFixedSize(15, 15)
+        self.results_back.clicked.connect(self.go_to_search)
+        self.results_controls.addWidget(self.results_back)
+        
         # Subtle "vid.frnki" label
         self.results_bg_label = QLabel("vid.frnki")
         self.results_bg_label.setStyleSheet("color: rgba(184, 187, 38, 50); font-size: 10px;")
@@ -138,15 +139,6 @@ class VidFrnki(QMainWindow):
         self.results_toggle.setChecked(True)
         self.results_toggle.clicked.connect(self.toggle_on_top)
         self.results_controls.addWidget(self.results_toggle)
-        
-        # Drag handle
-        self.results_drag = QLabel("⋮")
-        self.results_drag.setFixedSize(15, 15)
-        self.results_drag.setCursor(QCursor(Qt.CursorShape.OpenHandCursor))
-        self.results_drag.mousePressEvent = lambda event: self.start_drag(event, self.results_drag)
-        self.results_drag.mouseMoveEvent = lambda event: self.do_drag(event)
-        self.results_drag.mouseReleaseEvent = lambda event: self.end_drag(event, self.results_drag)
-        self.results_controls.addWidget(self.results_drag)
         
         # Minimize button
         self.results_minimize = QPushButton("−")
@@ -172,10 +164,12 @@ class VidFrnki(QMainWindow):
         
         # Video container
         self.video_container = QWidget()
+        self.video_container.setStyleSheet("background-color: transparent;")
         self.video_layout = QVBoxLayout(self.video_container)
         self.video_layout.setContentsMargins(1, 1, 1, 0)  # Even smaller frame on top/left/right
         
         self.web_view = QWebEngineView()
+        self.web_view.setStyleSheet("background-color: #000000;")  # Opaque black background for video
         self.video_layout.addWidget(self.web_view)
         self.video_layout.setStretchFactor(self.web_view, 1)
         
@@ -183,6 +177,12 @@ class VidFrnki(QMainWindow):
         self.video_controls = QHBoxLayout()
         self.video_controls.setContentsMargins(0, 0, 0, 0)
         self.video_controls.setSpacing(10)
+        
+        # Back button
+        self.back_button = QPushButton("←")
+        self.back_button.setFixedSize(15, 15)
+        self.back_button.clicked.connect(self.go_back)
+        self.video_controls.addWidget(self.back_button)
         
         # Subtle "vid.frnki" label
         self.video_bg_label = QLabel("vid.frnki")
@@ -198,15 +198,6 @@ class VidFrnki(QMainWindow):
         self.video_toggle.setChecked(True)
         self.video_toggle.clicked.connect(self.toggle_on_top)
         self.video_controls.addWidget(self.video_toggle)
-        
-        # Drag handle
-        self.video_drag = QLabel("⋮")
-        self.video_drag.setFixedSize(15, 15)
-        self.video_drag.setCursor(QCursor(Qt.CursorShape.OpenHandCursor))
-        self.video_drag.mousePressEvent = lambda event: self.start_drag(event, self.video_drag)
-        self.video_drag.mouseMoveEvent = lambda event: self.do_drag(event)
-        self.video_drag.mouseReleaseEvent = lambda event: self.end_drag(event, self.video_drag)
-        self.video_controls.addWidget(self.video_drag)
         
         # Minimize button
         self.video_minimize = QPushButton("−")
@@ -235,8 +226,11 @@ class VidFrnki(QMainWindow):
         
         # Apply Gruvbox dark theme: #282828 bg, subtle green #b8bb26 highlights
         self.setStyleSheet("""
-            QMainWindow, QWidget {
-                background-color: #282828;
+            QMainWindow {
+                background-color: transparent;
+            }
+            QWidget {
+                background-color: transparent;
                 color: #ebdbb2;
             }
             QLineEdit {
@@ -244,6 +238,7 @@ class VidFrnki(QMainWindow):
                 border: 1px solid #b8bb26;
                 color: #ebdbb2;
                 padding: 2px;
+                border-radius: 5px;
             }
             QLineEdit:focus {
                 border: 1px solid #98971a;
@@ -253,6 +248,7 @@ class VidFrnki(QMainWindow):
                 border: 1px solid #b8bb26;
                 color: #ebdbb2;
                 padding: 2px;
+                border-radius: 5px;
             }
             QPushButton:hover {
                 background-color: #32302f;
@@ -265,6 +261,7 @@ class VidFrnki(QMainWindow):
                 background-color: #1d2021;
                 border: 1px solid #b8bb26;
                 color: #ebdbb2;
+                border-radius: 5px;
             }
             QListWidget::item:selected {
                 background-color: #32302f;
@@ -306,20 +303,18 @@ class VidFrnki(QMainWindow):
         
         self.results_container.hide()
         self.video_container.show()
-        # Keep opacity at 0.8
+        # No opacity change
         self.updateMask()
     
     def go_back(self):
         self.video_container.hide()
         self.web_view.setUrl(QUrl("about:blank"))
         self.results_container.show()
-        self.setWindowOpacity(0.8)
         self.updateMask()
     
     def go_to_search(self):
         self.results_container.hide()
         self.search_container.show()
-        self.setWindowOpacity(0.8)
         self.updateMask()
     
     def toggle_on_top(self):
@@ -372,6 +367,19 @@ class VidFrnki(QMainWindow):
             event.accept()
         else:
             super().keyPressEvent(event)
+
+    def mousePressEvent(self, event):
+        if event.button() == Qt.MouseButton.LeftButton:
+            self.old_pos = event.globalPosition().toPoint()
+
+    def mouseMoveEvent(self, event):
+        if self.old_pos is not None:
+            delta = QPoint(event.globalPosition().toPoint() - self.old_pos)
+            self.move(self.x() + delta.x(), self.y() + delta.y())
+            self.old_pos = event.globalPosition().toPoint()
+
+    def mouseReleaseEvent(self, event):
+        self.old_pos = None
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
