@@ -32,7 +32,7 @@ class VidFrnki(QMainWindow):
         central_widget = QWidget()
         self.setCentralWidget(central_widget)
         self.main_layout = QVBoxLayout(central_widget)
-        self.main_layout.setContentsMargins(5, 5, 5, 5)
+        self.main_layout.setContentsMargins(20, 20, 20, 5)  # Increased margins for space around edges, reduced bottom
         
         # Search container
         self.search_container = QWidget()
@@ -47,24 +47,25 @@ class VidFrnki(QMainWindow):
         self.search_input.setMaximumHeight(25)
         self.search_layout.addWidget(self.search_input)
         
-        # Load button
+        # Load button (smaller width)
         self.load_button = QPushButton("Search")
         self.load_button.clicked.connect(self.search_videos)
         self.load_button.setMaximumHeight(25)
-        self.search_layout.addWidget(self.load_button)
+        self.load_button.setMaximumWidth(100)
+        self.search_layout.addWidget(self.load_button, alignment=Qt.AlignmentFlag.AlignCenter)
         
         self.search_layout.addStretch()
-        
-        # Subtle bottom label for "vid.frnki"
-        self.search_bg_label = QLabel("vid.frnki")
-        self.search_bg_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        self.search_bg_label.setStyleSheet("color: rgba(184, 187, 38, 50); font-size: 12px;")
-        self.search_layout.addWidget(self.search_bg_label)
         
         # Controls for search (no back button needed)
         self.search_controls = QHBoxLayout()
         self.search_controls.setContentsMargins(0, 0, 0, 0)
         self.search_controls.setSpacing(10)
+        
+        # Subtle "vid.frnki" label
+        self.search_bg_label = QLabel("vid.frnki")
+        self.search_bg_label.setStyleSheet("color: rgba(184, 187, 38, 50); font-size: 10px;")
+        self.search_controls.addWidget(self.search_bg_label)
+        
         self.search_controls.addStretch()
         
         # Toggle on top button (more minimal: "T")
@@ -118,24 +119,15 @@ class VidFrnki(QMainWindow):
         self.results_layout.setStretchFactor(self.results_list, 1)
         self.results_list.itemDoubleClicked.connect(self.play_selected)
         
-        self.results_layout.addStretch()
-        
-        # Subtle bottom label for "vid.frnki"
-        self.results_bg_label = QLabel("vid.frnki")
-        self.results_bg_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        self.results_bg_label.setStyleSheet("color: rgba(184, 187, 38, 50); font-size: 12px;")
-        self.results_layout.addWidget(self.results_bg_label)
-        
         # Controls for results
         self.results_controls = QHBoxLayout()
         self.results_controls.setContentsMargins(0, 0, 0, 0)
         self.results_controls.setSpacing(10)
         
-        # Back button
-        self.results_back = QPushButton("←")
-        self.results_back.setFixedSize(15, 15)
-        self.results_back.clicked.connect(self.go_to_search)
-        self.results_controls.addWidget(self.results_back)
+        # Subtle "vid.frnki" label
+        self.results_bg_label = QLabel("vid.frnki")
+        self.results_bg_label.setStyleSheet("color: rgba(184, 187, 38, 50); font-size: 10px;")
+        self.results_controls.addWidget(self.results_bg_label)
         
         self.results_controls.addStretch()
         
@@ -181,30 +173,21 @@ class VidFrnki(QMainWindow):
         # Video container
         self.video_container = QWidget()
         self.video_layout = QVBoxLayout(self.video_container)
-        self.video_layout.setContentsMargins(0, 0, 0, 0)
-        self.video_layout.setSpacing(5)
+        self.video_layout.setContentsMargins(1, 1, 1, 0)  # Even smaller frame on top/left/right
+        
         self.web_view = QWebEngineView()
         self.video_layout.addWidget(self.web_view)
         self.video_layout.setStretchFactor(self.web_view, 1)
-        
-        self.video_layout.addStretch()
-        
-        # Subtle bottom label for "vid.frnki"
-        self.video_bg_label = QLabel("vid.frnki")
-        self.video_bg_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        self.video_bg_label.setStyleSheet("color: rgba(184, 187, 38, 50); font-size: 12px;")
-        self.video_layout.addWidget(self.video_bg_label)
         
         # Controls bar at bottom for video
         self.video_controls = QHBoxLayout()
         self.video_controls.setContentsMargins(0, 0, 0, 0)
         self.video_controls.setSpacing(10)
         
-        # Back button
-        self.back_button = QPushButton("←")
-        self.back_button.setFixedSize(15, 15)
-        self.back_button.clicked.connect(self.go_back)
-        self.video_controls.addWidget(self.back_button)
+        # Subtle "vid.frnki" label
+        self.video_bg_label = QLabel("vid.frnki")
+        self.video_bg_label.setStyleSheet("color: rgba(184, 187, 38, 50); font-size: 10px;")
+        self.video_controls.addWidget(self.video_bg_label)
         
         self.video_controls.addStretch()
         
@@ -263,7 +246,7 @@ class VidFrnki(QMainWindow):
                 padding: 2px;
             }
             QLineEdit:focus {
-                border: 1px solid #fabd2f;
+                border: 1px solid #98971a;
             }
             QPushButton {
                 background-color: #1d2021;
@@ -323,7 +306,7 @@ class VidFrnki(QMainWindow):
         
         self.results_container.hide()
         self.video_container.show()
-        self.setWindowOpacity(1.0)
+        # Keep opacity at 0.8
         self.updateMask()
     
     def go_back(self):
