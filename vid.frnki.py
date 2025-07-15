@@ -33,7 +33,7 @@ class VidFrnki(QMainWindow):
         central_widget.setStyleSheet("background-color: rgba(40, 40, 40, 204); border-radius: 10px;")  # Uniform semi-transparent background
         self.setCentralWidget(central_widget)
         self.main_layout = QVBoxLayout(central_widget)
-        self.main_layout.setContentsMargins(20, 20, 20, 5)  # Increased margins for space around edges, reduced bottom
+        self.main_layout.setContentsMargins(8, 8, 8, 5)  # Increased margins for space around edges, reduced bottom
         
         # Search container
         self.search_container = QWidget()
@@ -67,7 +67,7 @@ class VidFrnki(QMainWindow):
         self.search_controls.setSpacing(10)
         
         # Subtle "vid.frnki" label
-        self.search_bg_label = QLabel("vid.frnki")
+        self.search_bg_label = QLabel("vid.frnki - v1.0.0")
         self.search_bg_label.setStyleSheet("color: rgba(184, 187, 38, 50); font-size: 10px;")
         self.search_controls.addWidget(self.search_bg_label)
         
@@ -106,7 +106,7 @@ class VidFrnki(QMainWindow):
         self.results_container = QWidget()
         self.results_container.setStyleSheet("background-color: transparent;")
         self.results_layout = QVBoxLayout(self.results_container)
-        self.results_layout.setContentsMargins(0, 5, 0, 0)  # Added top margin to prevent overlap
+        self.results_layout.setContentsMargins(0, 0, 0, 0)
         self.results_layout.setSpacing(5)
         
         # Results list
