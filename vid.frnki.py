@@ -33,7 +33,7 @@ class VidFrnki(QMainWindow):
         central_widget.setStyleSheet("background-color: rgba(40, 40, 40, 204); border-radius: 10px;")  # Uniform semi-transparent background
         self.setCentralWidget(central_widget)
         self.main_layout = QVBoxLayout(central_widget)
-        self.main_layout.setContentsMargins(5, 5, 5, 5)  # Increased margins for space around edges, reduced bottom
+        self.main_layout.setContentsMargins(20, 20, 20, 5)  # Increased margins for space around edges, reduced bottom
         
         # Search container
         self.search_container = QWidget()
@@ -41,6 +41,8 @@ class VidFrnki(QMainWindow):
         self.search_layout = QVBoxLayout(self.search_container)
         self.search_layout.setContentsMargins(0, 0, 0, 0)
         self.search_layout.setSpacing(5)
+        
+        self.search_layout.addStretch()  # Add stretch for vertical centering
         
         # Search input
         self.search_input = QLineEdit()
@@ -57,7 +59,7 @@ class VidFrnki(QMainWindow):
         self.load_button.setMaximumWidth(100)
         self.search_layout.addWidget(self.load_button, alignment=Qt.AlignmentFlag.AlignHCenter)
         
-        self.search_layout.addStretch()
+        self.search_layout.addStretch()  # Existing bottom stretch
         
         # Controls for search (no back button needed)
         self.search_controls = QHBoxLayout()
@@ -104,7 +106,7 @@ class VidFrnki(QMainWindow):
         self.results_container = QWidget()
         self.results_container.setStyleSheet("background-color: transparent;")
         self.results_layout = QVBoxLayout(self.results_container)
-        self.results_layout.setContentsMargins(0, 0, 0, 0)
+        self.results_layout.setContentsMargins(0, 5, 0, 0)  # Added top margin to prevent overlap
         self.results_layout.setSpacing(5)
         
         # Results list
@@ -262,6 +264,7 @@ class VidFrnki(QMainWindow):
                 border: 1px solid #b8bb26;
                 color: #ebdbb2;
                 border-radius: 5px;
+                margin-top: 5px;  # Added top margin to prevent overlap
             }
             QListWidget::item:selected {
                 background-color: #32302f;
