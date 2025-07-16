@@ -27,7 +27,7 @@
 
 ### Binary Releases
 
-**Download from:** [**v1.0.0 Release**](https://github.com/frnki42/vid.frnki/releases/tag/v1.0.0)
+**Download from:** [**v1.0.1 Release**](https://github.com/frnki42/vid.frnki/releases/tag/v1.0.1)
 
 **Windows:**
 - `vid.frnki_install.exe` - Installer (recommended for Windows users)
