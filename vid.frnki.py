@@ -24,7 +24,7 @@ class VidFrnki(QMainWindow):
         # Toggle state for always on top
         self.on_top = True
         
-        # Set hacker-style font (monospace)
+        # Set font
         font = QFont("Monospace", 10)
         self.setFont(font)
         
@@ -42,26 +42,26 @@ class VidFrnki(QMainWindow):
         self.search_layout.setContentsMargins(0, 0, 0, 0)
         self.search_layout.setSpacing(5)
         
-        self.search_layout.addStretch()  # Add stretch for vertical centering
+        self.search_layout.addStretch()
         
         # Search input
         self.search_input = QLineEdit()
         self.search_input.setPlaceholderText("Enter YouTube search query")
         self.search_input.returnPressed.connect(self.search_videos)
         self.search_input.setMaximumHeight(25)
-        self.search_input.setFixedWidth(360)  # 75% of previous 480
+        self.search_input.setFixedWidth(360)
         self.search_layout.addWidget(self.search_input, alignment=Qt.AlignmentFlag.AlignHCenter)
         
-        # Load button (smaller width)
+        # Load button
         self.load_button = QPushButton("Search")
         self.load_button.clicked.connect(self.search_videos)
         self.load_button.setMaximumHeight(25)
         self.load_button.setMaximumWidth(100)
         self.search_layout.addWidget(self.load_button, alignment=Qt.AlignmentFlag.AlignHCenter)
         
-        self.search_layout.addStretch()  # Existing bottom stretch
+        self.search_layout.addStretch()
         
-        # Controls for search (no back button needed)
+        # Controls for search
         self.search_controls = QHBoxLayout()
         self.search_controls.setContentsMargins(0, 0, 0, 0)
         self.search_controls.setSpacing(10)
@@ -73,7 +73,7 @@ class VidFrnki(QMainWindow):
         
         self.search_controls.addStretch()
         
-        # Toggle on top button (more minimal: "T")
+        # Toggle on top button
         self.search_toggle = QPushButton("T")
         self.search_toggle.setFixedSize(15, 15)
         self.search_toggle.setCheckable(True)
@@ -134,7 +134,7 @@ class VidFrnki(QMainWindow):
         
         self.results_controls.addStretch()
         
-        # Toggle on top button (more minimal: "T")
+        # Toggle on top button
         self.results_toggle = QPushButton("T")
         self.results_toggle.setFixedSize(15, 15)
         self.results_toggle.setCheckable(True)
@@ -168,10 +168,10 @@ class VidFrnki(QMainWindow):
         self.video_container = QWidget()
         self.video_container.setStyleSheet("background-color: transparent;")
         self.video_layout = QVBoxLayout(self.video_container)
-        self.video_layout.setContentsMargins(1, 1, 1, 0)  # Even smaller frame on top/left/right
+        self.video_layout.setContentsMargins(1, 1, 1, 0)
         
         self.web_view = QWebEngineView()
-        self.web_view.setStyleSheet("background-color: #000000;")  # Opaque black background for video
+        self.web_view.setStyleSheet("background-color: #000000;")
         self.video_layout.addWidget(self.web_view)
         self.video_layout.setStretchFactor(self.web_view, 1)
         
@@ -193,7 +193,7 @@ class VidFrnki(QMainWindow):
         
         self.video_controls.addStretch()
         
-        # Toggle on top button (more minimal: "T")
+        # Toggle on top button
         self.video_toggle = QPushButton("T")
         self.video_toggle.setFixedSize(15, 15)
         self.video_toggle.setCheckable(True)
@@ -264,7 +264,7 @@ class VidFrnki(QMainWindow):
                 border: 1px solid #b8bb26;
                 color: #ebdbb2;
                 border-radius: 5px;
-                margin-top: 5px;  # Added top margin to prevent overlap
+                margin-top: 5px;  /* Added top margin to prevent overlap */
             }
             QListWidget::item:selected {
                 background-color: #32302f;
@@ -306,7 +306,6 @@ class VidFrnki(QMainWindow):
         
         self.results_container.hide()
         self.video_container.show()
-        # No opacity change
         self.updateMask()
     
     def go_back(self):
@@ -352,7 +351,7 @@ class VidFrnki(QMainWindow):
     
     def updateMask(self):
         path = QPainterPath()
-        path.addRoundedRect(QRectF(self.rect()), 10, 10)  # 10px radius
+        path.addRoundedRect(QRectF(self.rect()), 10, 10)
         region = QRegion(path.toFillPolygon().toPolygon())
         self.setMask(region)
     

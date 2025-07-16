@@ -120,6 +120,13 @@ vid.frnki.py
 - **Window**: Frameless + translucent + custom controls
 - **State**: Container-based UI switching
 
+## Troubleshooting
+
+**Common Issues:**
+- **Stylesheet warnings**: Ensure you have the latest version (fixed in v1.0.1)
+- **Missing Qt libraries**: Install `qt6-base` package on your distribution
+- **WebEngine issues**: Install `qt6-webengine` package for video playback
+
 ## Contributing
 
 Fork → Branch → Commit → PR
