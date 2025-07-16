@@ -27,16 +27,16 @@
 
 ### Binary Releases
 
-```bash
-# Download latest release
-curl -L https://github.com/frnki42/vid.frnki/releases/latest
+**Download from:** [**v1.0.0 Release**](https://github.com/frnki42/vid.frnki/releases/tag/v1.0.0)
 
-# Platform-specific binaries:
-# Windows: vid.frnki.exe (portable) | vid.frnki_installer.exe
-# Linux:   vid.frnki (executable)
-```
+**Windows:**
+- `vid.frnki.exe` - Portable version (run directly, no installation needed)
+- `vid.frnki_installer.exe` - Installer version
 
-→ [**Release Artifacts**](https://github.com/frnki42/vid.frnki/releases/latest)
+**Linux:**
+- `vid.frnki` - Executable binary (run directly, no installation needed)
+
+**Requirements:** Internet connection, modern OS (Windows 10+ or Linux with Qt support)
 
 ### Source Build
 
