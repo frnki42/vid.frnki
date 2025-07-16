@@ -7,8 +7,8 @@
 └─────────────────────────────────────────────────────────────┘
 ```
 
-[![version](https://img.shields.io/badge/version-1.0.1-b8bb26?style=flat-square&labelColor=282828)](https://github.com/yourusername/vid.frnki/releases)
-[![platform](https://img.shields.io/badge/platform-linux%20%7C%20windows-ebdbb2?style=flat-square&labelColor=282828)](https://github.com/yourusername/vid.frnki)
+[![version](https://img.shields.io/badge/version-1.0.1-b8bb26?style=flat-square&labelColor=282828)](https://github.com/frnki42/vid.frnki/releases)
+[![platform](https://img.shields.io/badge/platform-linux%20%7C%20windows-ebdbb2?style=flat-square&labelColor=282828)](https://github.com/frnki42/vid.frnki)
 [![license](https://img.shields.io/badge/license-MIT-98971a?style=flat-square&labelColor=282828)](LICENSE)
 [![language](https://img.shields.io/badge/python-3.12+-83a598?style=flat-square&labelColor=282828)](https://python.org)
 
