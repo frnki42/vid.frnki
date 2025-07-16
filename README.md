@@ -29,20 +29,20 @@
 
 ```bash
 # Download latest release
-curl -L https://github.com/yourusername/vid.frnki/releases/latest
+curl -L https://github.com/frnki42/vid.frnki/releases/latest
 
 # Platform-specific binaries:
 # Windows: vid.frnki.exe (portable) | vid.frnki_installer.exe
 # Linux:   vid.frnki (executable)
 ```
 
-→ [**Release Artifacts**](https://github.com/yourusername/vid.frnki/releases/latest)
+→ [**Release Artifacts**](https://github.com/frnki42/vid.frnki/releases/latest)
 
 ### Source Build
 
 ```bash
 # Clone repository
-git clone https://github.com/yourusername/vid.frnki.git && cd vid.frnki
+git clone https://github.com/frnki42/vid.frnki.git && cd vid.frnki
 
 # Setup environment
 python -m venv .venv && source .venv/bin/activate
