@@ -67,7 +67,7 @@ class VidFrnki(QMainWindow):
         self.search_controls.setSpacing(10)
         
         # Subtle "vid.frnki" label
-        self.search_bg_label = QLabel("vid.frnki - v1.0.0")
+        self.search_bg_label = QLabel("vid.frnki - v1.0.1")
         self.search_bg_label.setStyleSheet("color: rgba(184, 187, 38, 50); font-size: 10px;")
         self.search_controls.addWidget(self.search_bg_label)
         
