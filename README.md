@@ -1,111 +1,125 @@
 # vid.frnki
 
-A minimalist, always-on-top YouTube search and player application built with PyQt6. Features a sleek frameless design with Gruvbox dark theme.
+```
+┌─────────────────────────────────────────────────────────────┐
+│ A minimalist, frameless YouTube client for terminal dwellers │
+│ Built with PyQt6 • Gruvbox aesthetic • Always-on-top        │
+└─────────────────────────────────────────────────────────────┘
+```
 
-![vid.frnki](https://img.shields.io/badge/version-1.0.0-green)
-![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20Linux-blue)
-![License](https://img.shields.io/badge/license-MIT-blue)
+[![version](https://img.shields.io/badge/version-1.0.0-b8bb26?style=flat-square&labelColor=282828)](https://github.com/yourusername/vid.frnki/releases)
+[![platform](https://img.shields.io/badge/platform-linux%20%7C%20windows-ebdbb2?style=flat-square&labelColor=282828)](https://github.com/yourusername/vid.frnki)
+[![license](https://img.shields.io/badge/license-MIT-98971a?style=flat-square&labelColor=282828)](LICENSE)
+[![language](https://img.shields.io/badge/python-3.12+-83a598?style=flat-square&labelColor=282828)](https://python.org)
 
 ## Features
 
-- 🎥 **YouTube Search & Play**: Search and play YouTube videos in an embedded player
-- 🖼️ **Frameless Design**: Clean, borderless window with custom controls
-- 📌 **Always On Top**: Toggle-able always-on-top functionality
-- 🎨 **Gruvbox Theme**: Dark, hacker-style aesthetic with green accents
-- 🖱️ **Draggable Interface**: Click and drag anywhere to move the window
-- ⌨️ **Keyboard Navigation**: ESC key for intuitive back navigation
-- 🔄 **Translucent Background**: Semi-transparent design for desktop integration
-- 📱 **Resizable**: Custom resize grips for window management
-
-## Download
-
-### Pre-built Binaries
-
-Download the latest release for your platform:
-
-- **Windows**: `vid.frnki.exe` or `vid.frnki_installer.exe`
-- **Linux**: `vid.frnki` (AppImage or binary)
-
-[**Download Latest Release →**](https://github.com/yourusername/vid.frnki/releases/latest)
+- **Frameless Architecture**: Zero window chrome, maximum content
+- **YouTube Integration**: Direct video search and embedded playback  
+- **Always-on-Top**: Persistent overlay mode with toggle control
+- **Gruvbox Colorscheme**: Dark terminal-inspired aesthetic (#282828/#b8bb26)
+- **Drag Interface**: Click-and-drag window positioning
+- **Keyboard Navigation**: ESC-driven back navigation
+- **Translucent Rendering**: Semi-transparent background composition
+- **Custom Window Controls**: Minimize/close/resize grip implementations
 
 ## Installation
 
-### Option 1: Pre-built Executables (Recommended)
-1. Download the appropriate executable for your platform
-2. Run the application directly (no installation required)
+### Binary Releases
 
-### Option 2: From Source
 ```bash
-# Clone the repository
-git clone https://github.com/yourusername/vid.frnki.git
-cd vid.frnki
+# Download latest release
+curl -L https://github.com/yourusername/vid.frnki/releases/latest
 
-# Create virtual environment
-python -m venv myenv
-source myenv/bin/activate  # On Windows: myenv\Scripts\activate
+# Platform-specific binaries:
+# Windows: vid.frnki.exe (portable) | vid.frnki_installer.exe
+# Linux:   vid.frnki (executable)
+```
 
-# Install dependencies
+→ [**Release Artifacts**](https://github.com/yourusername/vid.frnki/releases/latest)
+
+### Source Build
+
+```bash
+# Clone repository
+git clone https://github.com/yourusername/vid.frnki.git && cd vid.frnki
+
+# Setup environment
+python -m venv .venv && source .venv/bin/activate
+
+# Install dependencies  
 pip install PyQt6 PyQt6-WebEngine youtube-search-python
 
-# Run the application
+# Execute
 python vid.frnki.py
 ```
 
 ## Usage
 
-1. **Search**: Enter a YouTube search query and press Enter or click "Search"
-2. **Browse Results**: Double-click any video in the results list to play
-3. **Navigation**: Use ESC key or back buttons to navigate between screens
-4. **Window Controls**: 
-   - `T` - Toggle always-on-top
-   - `−` - Minimize window
-   - `X` - Close application
-5. **Move Window**: Click and drag anywhere on the window to reposition
-
-## Building from Source
-
-### Requirements
-- Python 3.12+
-- PyQt6
-- PyQt6-WebEngine
-- youtube-search-python
-- PyInstaller (for building executables)
-
-### Build Executable
-```bash
-# Activate virtual environment
-source myenv/bin/activate
-
-# Install PyInstaller
-pip install pyinstaller
-
-# Build executable
-pyinstaller vid_frnki.spec
+```
+Search → Results → Playback
+   ↑        ↑         ↑
+  Enter   Double    ESC
+  query   click     back
 ```
 
-The executable will be created in the `dist/` directory.
+**Controls:**
+- `T` → Toggle always-on-top mode
+- `−` → Minimize to taskbar  
+- `X` → Terminate process
+- `ESC` → Navigate backwards
+- `Click+Drag` → Window positioning
 
-## Technical Details
+## Build System
 
-- **Framework**: PyQt6 with WebEngine for video playback
-- **Architecture**: Single-file application with container-based UI states
-- **Theme**: Gruvbox color scheme (#282828, #b8bb26, #ebdbb2)
-- **Window Management**: Frameless with custom controls and rounded corners
+**Dependencies:**
+- `python>=3.12`
+- `PyQt6` + `PyQt6-WebEngine`  
+- `youtube-search-python`
+- `pyinstaller` (executable generation)
+
+**Compile Binary:**
+```bash
+# Install build tools
+pip install pyinstaller
+
+# Generate executable
+pyinstaller vid_frnki.spec
+
+# Output: dist/vid_frnki[.exe]
+```
+
+## Architecture
+
+```
+vid.frnki.py
+├── VidFrnki(QMainWindow)
+│   ├── search_container    # Query input state
+│   ├── results_container   # Search results list  
+│   └── video_container     # Embedded player
+└── PyQt6.QtWebEngineView   # YouTube iframe
+```
+
+**Stack:**
+- **GUI**: PyQt6 + QtWebEngine
+- **Theming**: Gruvbox (#282828/#b8bb26/#ebdbb2)  
+- **Window**: Frameless + translucent + custom controls
+- **State**: Container-based UI switching
 
 ## Contributing
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+Fork → Branch → Commit → PR
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+MIT License - see [LICENSE](LICENSE)
 
-## Acknowledgments
+## Dependencies
 
-- Built with [PyQt6](https://www.riverbankcomputing.com/software/pyqt/)
-- YouTube integration via [youtube-search-python](https://github.com/alexmercerind/youtube-search-python)
-- Inspired by the [Gruvbox](https://github.com/morhetz/gruvbox) color scheme
+- [PyQt6](https://riverbankcomputing.com/software/pyqt/) - GUI framework
+- [youtube-search-python](https://github.com/alexmercerind/youtube-search-python) - YouTube API
+- [Gruvbox](https://github.com/morhetz/gruvbox) - Color scheme inspiration
 
 ---
 
-**Note**: This application requires an internet connection for YouTube search and video playback.
+**Runtime requirement:** Active internet connection
