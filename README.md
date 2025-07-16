@@ -40,12 +40,26 @@
 
 ### Source Build
 
+**Prerequisites:**
+```bash
+# Ubuntu/Debian
+sudo apt update && sudo apt install python3 python3-venv python3-pip git
+
+# Fedora/RHEL
+sudo dnf install python3 python3-venv python3-pip git
+
+# Arch Linux
+sudo pacman -S python python-pip git
+```
+
+**Build Steps:**
 ```bash
 # Clone repository
 git clone https://github.com/frnki42/vid.frnki.git && cd vid.frnki
 
-# Setup environment
-python -m venv .venv && source .venv/bin/activate
+# Setup environment (try python3 first, fallback to python)
+python3 -m venv .venv || python -m venv .venv
+source .venv/bin/activate
 
 # Install dependencies  
 pip install PyQt6 PyQt6-WebEngine youtube-search-python
